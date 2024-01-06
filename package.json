@@ -1,0 +1,41 @@
+{
+	"name": "@vyke/oclock",
+	"type": "module",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"dev": "vite",
+		"dev:server": "vite-node -w ./src/server.js",
+		"dev:css": "tailwindcss -i ./src/style.css -o ./dist/style.css",
+		"test": "run-s test:*",
+		"test:lint": "eslint . --fix",
+		"test:types": "tsc --noEmit",
+		"build": "NODE_ENV=production run-s build:server build:static build:client",
+		"build:server": "vite build",
+		"build:static": "VYKE_MODE=build vite-node ./src/index.ts",
+		"build:client": "vite build --mode client",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@hono/node-server": "^1.4.0",
+		"@vyke/dency": "^0.0.9",
+		"@vyke/elements": "^0.0.25",
+		"@vyke/sola": "^0.0.5",
+		"chokidar": "^3.5.3",
+		"hono": "^3.12.0"
+	},
+	"devDependencies": {
+		"@antfu/eslint-config": "^2.6.1",
+		"@hono/vite-dev-server": "^0.3.4",
+		"@types/node": "^20.10.6",
+		"autoprefixer": "^10.4.16",
+		"daisyui": "^4.5.0",
+		"eslint": "^8.56.0",
+		"npm-run-all": "^4.1.5",
+		"postcss": "^8.4.33",
+		"tailwindcss": "^3.4.0",
+		"typescript": "^5.2.2",
+		"vite": "^5.0.10",
+		"vite-node": "^1.1.2"
+	}
+}
