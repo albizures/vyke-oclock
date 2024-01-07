@@ -2,7 +2,7 @@ import { dency } from '@vyke/dency'
 import { routesManagerId } from '../routes-manager'
 import { renderPage } from '../components/Page'
 import { div } from '../elements'
-import { Clock } from '../clock/clock'
+import { Clock } from '../components/clock/clock'
 
 dency.use(routesManagerId).register({
 	type: 'static',

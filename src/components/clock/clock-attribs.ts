@@ -1,5 +1,5 @@
-import { createBind } from '../intera/bind'
-import { styleProp } from '../intera/binds/style'
+import { createBind } from '../../intera/bind'
+import { styleProp } from '../../intera/binds/style'
 
 export const clockBinds = {
 	hours: createBind(styleProp, 'hours'),

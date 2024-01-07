@@ -1,6 +1,6 @@
 import type { HtmlChild } from '@vyke/elements/v'
-import { div, span } from '../elements'
-import type { Bind } from '../intera/bind'
+import { div, span } from '../../elements'
+import type { Bind } from '../../intera/bind'
 import { clockBinds } from './clock-attribs'
 
 function ClockValueContainer(...children: Array<HtmlChild>) {

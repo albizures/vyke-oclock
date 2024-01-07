@@ -1,9 +1,9 @@
+import './style.css'
 import requestAnimationFrames from 'request-animation-frames'
 import { styleProp } from './intera/binds/style'
 import { intera } from './intera/intera'
-import './style.css'
-import { getClockValues } from './clock/clock-values'
-import { clockBinds } from './clock/clock-attribs'
+import { getClockValues } from './components/clock/clock-values'
+import { clockBinds } from './components/clock/clock-attribs'
 
 intera.emitter.on('ready', async () => {
 	for await (const _timestamp of requestAnimationFrames()) {
