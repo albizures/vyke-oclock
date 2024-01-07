@@ -6,6 +6,7 @@ export const {
 	h3,
 	h4,
 	div,
+	span,
 	html,
 	body,
 	head,

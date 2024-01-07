@@ -5,6 +5,7 @@ export default defineConfig(({ mode }) => {
 	if (mode === 'client') {
 		return {
 			build: {
+				minify: 'terser',
 				lib: {
 					entry: './src/client.ts',
 					formats: ['es'],
@@ -33,6 +34,7 @@ export default defineConfig(({ mode }) => {
 			}),
 		],
 		build: {
+			minify: 'terser',
 			lib: {
 				entry: './src/index.ts',
 				formats: ['es'],

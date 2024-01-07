@@ -1,7 +1,8 @@
 import { dency } from '@vyke/dency'
 import { routesManagerId } from '../routes-manager'
 import { renderPage } from '../components/Page'
-import { h1 } from '../elements'
+import { div } from '../elements'
+import { Clock } from '../clock/clock'
 
 dency.use(routesManagerId).register({
 	type: 'static',
@@ -9,8 +10,9 @@ dency.use(routesManagerId).register({
 	path: '/',
 	render: () => {
 		return renderPage(
-			h1('hello'),
+			div({ class: 'clock-container fixed inset w-full h-full flex justify-center items-center' },
+				Clock(),
+			),
 		)
 	},
-
 })

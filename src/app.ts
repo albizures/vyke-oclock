@@ -5,6 +5,7 @@ import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { type RoutesManagerBase, routesManagerId } from './routes-manager'
 import { rootSola } from './sola'
+import { env } from './env'
 
 const sola = rootSola.withTag('app')
 
@@ -33,9 +34,18 @@ dency.bind(appId, (routesManager: RoutesManagerBase) => {
 		fs.writeFileSync('./dist/meta.json', JSON.stringify(meta))
 	}
 
+	// only for development
+	let staticMounted = false
+
 	return {
 		createRouter() {
-			router.use('/static/*', serveStatic({ root: './dist' }))
+			if (env.PROD) {
+				router.use('/static/*', serveStatic({ root: './dist' }))
+			}
+			else if (!staticMounted) {
+				router.use('/static/*', serveStatic({ root: './dist' }))
+				staticMounted = true
+			}
 			routesManager.mount(router)
 
 			sola.log('routes mounted')
@@ -56,7 +66,7 @@ dency.bind(appId, (routesManager: RoutesManagerBase) => {
 
 			if (appMeta.type === 'static') {
 				// removing server code
-				fs.unlinkSync('./dist/index.js')
+				// fs.unlinkSync('./dist/index.js')
 			}
 
 			writeMeta(appMeta)
