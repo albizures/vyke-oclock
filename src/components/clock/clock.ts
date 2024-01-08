@@ -20,11 +20,13 @@ function ClockValue(label: string, bind: Bind) {
 }
 
 export function Clock() {
-	return div({ class: 'grid grid-flow-col gap-5 text-center auto-cols-max' },
-		ClockValue('hours', clockBinds.hours),
-		span({ class: 'text-4xl md:text-7xl' }, ':'),
-		ClockValue('minutes', clockBinds.minutes),
-		span({ class: 'text-4xl md:text-7xl' }, ':'),
-		ClockValue('seconds', clockBinds.seconds),
+	return div({ class: 'clock-container w-full h-screen flex justify-center items-center' },
+		div({ class: 'grid grid-flow-col gap-5 text-center auto-cols-max' },
+			ClockValue('hours', clockBinds.hours),
+			span({ class: 'text-4xl md:text-7xl' }, ':'),
+			ClockValue('minutes', clockBinds.minutes),
+			span({ class: 'text-4xl md:text-7xl' }, ':'),
+			ClockValue('seconds', clockBinds.seconds),
+		),
 	)
 }

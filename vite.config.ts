@@ -7,10 +7,11 @@ export default defineConfig(({ mode }) => {
 			build: {
 				minify: 'terser',
 				lib: {
-					entry: './src/client.ts',
+
+					entry: ['./src/client/index.ts', './src/client/stopwatch.ts', './src/client/timer.ts'],
 					formats: ['es'],
-					fileName: 'client',
-					name: 'client',
+					fileName: '[name]',
+					name: '[name]',
 				},
 				rollupOptions: {
 					output: {

@@ -1,6 +1,7 @@
 import { elements } from '@vyke/elements/v'
 
 export const {
+	a,
 	h1,
 	h2,
 	h3,

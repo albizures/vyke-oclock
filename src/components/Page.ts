@@ -3,7 +3,7 @@ import { $ } from '@vyke/elements/v/server'
 import { body, head, html, link, script } from '../elements'
 import { env } from '../env'
 
-export function renderPage(children: AnyVykeElement) {
+export function renderPage(scriptName: string, children: AnyVykeElement) {
 	return `<!DOCTYPE html>
 	${$(html({ 'lang': 'en', 'data-theme': 'dark' },
 			head(
@@ -13,8 +13,8 @@ export function renderPage(children: AnyVykeElement) {
 					script({
 						type: 'module',
 						src: env.PROD
-							? '/static/client.js'
-							: '/src/client.ts',
+							? `/static/${scriptName}.js`
+							: `/src/client/${scriptName}.ts`,
 					}),
 			),
 			body(

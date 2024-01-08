@@ -66,7 +66,7 @@ dency.bind(appId, (routesManager: RoutesManagerBase) => {
 
 			if (appMeta.type === 'static') {
 				// removing server code
-				// fs.unlinkSync('./dist/index.js')
+				fs.unlinkSync('./dist/index.js')
 			}
 
 			writeMeta(appMeta)

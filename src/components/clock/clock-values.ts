@@ -3,6 +3,7 @@ export function getClockValues(date: Date) {
 		hours: zeroPad(date.getHours()),
 		minutes: zeroPad(date.getMinutes()),
 		seconds: zeroPad(date.getSeconds()),
+		milli: zeroPad(date.getMilliseconds()),
 	}
 }
 

@@ -8,6 +8,8 @@
 		"dev:server": "vite-node -w ./src/server.js",
 		"dev:css": "tailwindcss -i ./src/style.css -o ./dist/style.css",
 		"test": "run-s test:*",
+		"test:unit": "vitest run",
+		"test:unit:dev": "vitest",
 		"test:lint": "eslint . --fix",
 		"test:types": "tsc --noEmit",
 		"clean": "rimraf ./dist",
@@ -22,8 +24,10 @@
 		"@hono/node-server": "^1.4.0",
 		"@vyke/dency": "^0.0.9",
 		"@vyke/elements": "^0.0.25",
+		"@vyke/elements-fa-solid": "^0.0.9",
 		"@vyke/sola": "^0.0.5",
 		"chokidar": "^3.5.3",
+		"clsx": "^2.1.0",
 		"hono": "^3.12.0",
 		"mitt": "^3.0.1",
 		"request-animation-frames": "^1.0.0"
@@ -42,6 +46,7 @@
 		"terser": "^5.26.0",
 		"typescript": "^5.2.2",
 		"vite": "^5.0.10",
-		"vite-node": "^1.1.2"
+		"vite-node": "^1.1.2",
+		"vitest": "^1.1.3"
 	}
 }

@@ -9,12 +9,12 @@ import { Menu } from '../components/menu'
 dency.use(routesManagerId).register({
 	type: 'static',
 	method: 'get',
-	path: '/',
+	path: '/timer',
 	render: () => {
 		return renderPage('index',
 			Fragment(
 				Clock(),
-				Menu('clock'),
+				Menu('timer'),
 				div({ class: 'w-full h-screen flex' },
 					'test',
 				),
