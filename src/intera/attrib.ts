@@ -16,6 +16,13 @@ export type InteraAttrib = {
 	setup: InteraAttribSetup
 }
 
+export type AttribItem<TName extends string> = {
+	eventName: CreateEventName<TName, string>
+	attrName: CreateNames<'-', TName>
+	value: string
+	attr: Record<CreateNames<'-', TName>, string>
+}
+
 export type Attrib = keyof InteraAttribDef
 
 export type AttribName = CreateNames<'-', Attrib>
@@ -23,7 +30,7 @@ export type AttribQuery = `[${AttribName}]`
 export type AttribEventName = CreateEventName<Attrib, string>
 export type AttribAndName = `${AttribName}="${string}"`
 
-export function getAttrName(attrib: Attrib): AttribName {
+export function getAttrName<TAttrib extends string>(attrib: TAttrib): CreateNames<'-', TAttrib> {
 	return `${prefix}-${attrib}` as const
 }
 
@@ -43,7 +50,7 @@ export function selectAllWithAttr(parent: ParentNode, attrib: Attrib) {
 	return parent.querySelectorAll(getAttrQuery(attrib))
 }
 
-export function getAttrEventName(attrib: Attrib, value: string): AttribEventName {
+export function getAttrEventName<TAttrib extends string>(attrib: TAttrib, value: string): CreateEventName<TAttrib, string> {
 	return `${prefix}:${attrib}:${value}` as const
 }
 

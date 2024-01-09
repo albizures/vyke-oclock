@@ -1,9 +1,9 @@
 import { type AttribItem, getAttrEventName, getAttrName } from './attrib'
 
-export type Bind = ReturnType<typeof createBind>
+export type Event = ReturnType<typeof createEvent>
 
-export function createBind<
-	TAttrib extends { name: string, type: 'bind' },
+export function createEvent<
+	TAttrib extends { name: string, type: 'event' },
 >(attr: TAttrib, value: string): AttribItem<TAttrib['name']> {
 	const attrName = getAttrName(attr.name)
 	return {

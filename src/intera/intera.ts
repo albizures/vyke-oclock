@@ -15,6 +15,18 @@ export function createIntera() {
 
 			emitter.emit('ready', true)
 		},
+		on<TEventName extends keyof Events>(
+			attrib: { eventName: TEventName },
+			handler: (data: Events[TEventName]) => void,
+		) {
+			emitter.on(attrib.eventName, handler)
+		},
+		emit<TEventName extends keyof Events>(
+			attrib: { eventName: TEventName },
+			data: Events[TEventName],
+		) {
+			emitter.emit(attrib.eventName, data)
+		},
 		emitter,
 	}
 }

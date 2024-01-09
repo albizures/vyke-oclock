@@ -2,10 +2,11 @@ import '../style.css'
 import requestAnimationFrames from 'request-animation-frames'
 import { styleProp } from '../intera/binds/style'
 import { intera } from '../intera/intera'
-import { stopwatchBinds } from '../components/stopwatch/stopwatch-attribs'
+import { stopwatchBinds, stopwatchEvents } from '../components/stopwatch/stopwatch-attribs'
+import { click } from '../intera/events/click'
+import { className } from '../intera/binds/className'
 
-export function getStopwatchValues(start: number, current: number) {
-	const delta = current - start
+export function getStopwatchValues(delta: number) {
 	const rawHours = delta / 3_600_000
 	const hours = Math.floor(rawHours)
 	const hoursInMilli = hours * 3_600_000
@@ -25,21 +26,60 @@ export function getStopwatchValues(start: number, current: number) {
 	}
 }
 
-intera.emitter.on('ready', async () => {
-	const start = Date.now()
+type StopwatchContext = {
+	delta: number
+	isPaused: boolean
+}
 
-	for await (const _timestamp of requestAnimationFrames()) {
-		const values = getStopwatchValues(start, Date.now())
+const stopwatch = {
+	async play(context: StopwatchContext) {
+		let last = Date.now()
+		for await (const _timestamp of requestAnimationFrames()) {
+			const { isPaused } = context
+			const now = Date.now()
+			context.delta += now - last
+			last = now
 
-		intera.emitter.emit(stopwatchBinds.hours.eventName, ['--value', values.hours])
-		intera.emitter.emit(stopwatchBinds.minutes.eventName, ['--value', values.minutes])
-		intera.emitter.emit(stopwatchBinds.seconds.eventName, ['--value', values.seconds])
-		intera.emitter.emit(stopwatchBinds.milli.eventName, ['--value', values.milli])
+			const values = getStopwatchValues(context.delta)
+
+			intera.emit(stopwatchBinds.hours, ['--value', values.hours])
+			intera.emit(stopwatchBinds.minutes, ['--value', values.minutes])
+			intera.emit(stopwatchBinds.seconds, ['--value', values.seconds])
+			intera.emit(stopwatchBinds.milli, ['--value', values.milli])
+
+			if (isPaused) {
+				break
+			}
+		}
+	},
+	reset(context: StopwatchContext) {
+		context.delta = 0
+	},
+	context: {
+		delta: 0,
+		isPaused: false,
+	},
+}
+
+intera.on(stopwatchEvents.play, () => {
+	if (!stopwatch.context.isPaused) {
+		stopwatch.context.delta = 0
 	}
 
-	setInterval(() => {
-
-	}, 2000)
+	stopwatch.context.isPaused = false
+	stopwatch.play(stopwatch.context)
+	intera.emit(stopwatchBinds.play, ['add', 'hidden'])
+	intera.emit(stopwatchBinds.pause, ['remove', 'hidden'])
 })
 
-intera.init([styleProp])
+intera.on(stopwatchEvents.pause, () => {
+	stopwatch.context.isPaused = true
+	intera.emit(stopwatchBinds.pause, ['add', 'hidden'])
+	intera.emit(stopwatchBinds.play, ['remove', 'hidden'])
+})
+
+intera.on(stopwatchEvents.reset, () => {
+	stopwatch.reset(stopwatch.context)
+})
+
+intera.init([styleProp, click, className])
